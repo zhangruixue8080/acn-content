@@ -9,8 +9,8 @@ Wirecast 无法连接直播频道的ingest URL，出现 -4018 错误:
 ###解决方法:
 1. 登录azure portal，检查频道是否在运行状态。
 2. 如果频道已经运行，检查ingest URL的域名是否可以在Wirecast工作站解析，如果无法解析，找到一台可以正常解析ingest url域名的电脑，运行ping命令获取IP地址:
- ![ping-ip](media/aog-media-service-troubleshoot-faq/ping-ip.png "通过ping获取IP地址")
- 在Wirecast的输出设置中，用获取的IP地址 替换ingest URL的域名:
+ ![ping-ip](media/aog-media-service-troubleshoot-faq/ping-ip.png "通过ping获取IP地址")  
+ 在Wirecast的输出设置中，用获取的IP地址 替换ingest URL的域名:  
  ![ingestURL-domain](media/aog-media-service-troubleshoot-faq/ingestURL-domain.png "IP地址替换ingest URL域名")
   
 **注：当频道重启后，IP地址会发生变化，需要重新获取。**
