@@ -4,21 +4,21 @@
 ###场景一: 
 Wirecast 无法连接直播频道的ingest URL，出现 -4018 错误:
 
-![wirecast-error](media\aog-media-service-troubleshoot-faq\wirecast-error.png "Wirecast-4018错误提示")
+![wirecast-error](media/aog-media-service-troubleshoot-faq/wirecast-error.png "Wirecast-4018错误提示")
 
 ###解决方法:
 1. 登录azure portal，检查频道是否在运行状态。
 2. 如果频道已经运行，检查ingest URL的域名是否可以在Wirecast工作站解析，如果无法解析，找到一台可以正常解析ingest url域名的电脑，运行ping命令获取IP地址:
- ![ping-ip](media\aog-media-service-troubleshoot-faq\ping-ip.png "通过ping获取IP地址")
+ ![ping-ip](media/aog-media-service-troubleshoot-faq/ping-ip.png "通过ping获取IP地址")
  在Wirecast的输出设置中，用获取的IP地址 替换ingest URL的域名:
- ![ingestURL-domain](media\aog-media-service-troubleshoot-faq\ingestURL-domain.png "IP地址替换ingest URL域名")
+ ![ingestURL-domain](media/aog-media-service-troubleshoot-faq/ingestURL-domain.png "IP地址替换ingest URL域名")
   
 **注：当频道重启后，IP地址会发生变化，需要重新获取。**
 
 ###场景二: 
 直播无法预览，提示下载manifest文件出错: 
 
-![manifest-error](media\aog-media-service-troubleshoot-faq\manifest-error.png "下载manifest文件出错提示")
+![manifest-error](media/aog-media-service-troubleshoot-faq/manifest-error.png "下载manifest文件出错提示")
   
 ###解决方法:
 1. 将preview URL复制到浏览器，看是否可以下载manifest文件，如果同样无法下载，需要等待1到2分钟，直到浏览器可以下载manifest后，返回azure portal，重新尝试预览。  
@@ -28,11 +28,11 @@ Wirecast 无法连接直播频道的ingest URL，出现 -4018 错误:
 ###场景三:
 直播预览成功，但是无法观看节目，如在Media Service Player出现下面错误:
 
-![player-error1](media\aog-media-service-troubleshoot-faq\player-error1.png "MeidaServicePalyer出现0x30200000错误")
+![player-error1](media/aog-media-service-troubleshoot-faq/player-error1.png "MeidaServicePalyer出现0x30200000错误")
 
   或者
   
-![player-error2](media\aog-media-service-troubleshoot-faq\player-error2.png "MeidaServicePalyer出现0x30200193错误")
+![player-error2](media/aog-media-service-troubleshoot-faq/player-error2.png "MeidaServicePalyer出现0x30200193错误")
     
 ###解决方法:
 检查是否流式处理端点处于运行状态，并且包含至少一个流式处理单元。如果没有，扩容到至少一个流式处理单元后，运行流式处理端点。
@@ -40,7 +40,7 @@ Wirecast 无法连接直播频道的ingest URL，出现 -4018 错误:
 ###场景四: 
 收看直播过程中出现间断，如在客户端看到缓冲状态，或者直播画面出现蓝天白云的静态图片，如下图:
 
-![azure](media\aog-media-service-troubleshoot-faq\azure.png "azure")
+![azure](media/aog-media-service-troubleshoot-faq/azure.png "azure")
 
 ###解决方法:
 通常是由于Wirecast上传信号出现问题，建议首先排查Wirecast工作站:  
@@ -64,11 +64,11 @@ Wirecast 无法连接直播频道的ingest URL，出现 -4018 错误:
 ###场景一:
 无法点播视频，如在Media Service Player出现下面错误:
 
-![player-error1](media\aog-media-service-troubleshoot-faq\player-error1.png "MeidaServicePalyer出现0x30200000错误")
+![player-error1](media/aog-media-service-troubleshoot-faq/player-error1.png "MeidaServicePalyer出现0x30200000错误")
 
   或者
   
-![player-error2](media\aog-media-service-troubleshoot-faq\player-error2.png "MeidaServicePalyer出现0x30200193错误")
+![player-error2](media/aog-media-service-troubleshoot-faq/player-error2.png "MeidaServicePalyer出现0x30200193错误")
 
 ###解决方法:
 检查是否流式处理端点处于运行状态，并且包含至少一个流式处理单元。如果没有，扩容到至少一个流式处理单元后，运行流式处理端点。
@@ -76,7 +76,7 @@ Wirecast 无法连接直播频道的ingest URL，出现 -4018 错误:
 ###场景二:
 在azure portal上将流式处理单元从0个扩容到1个或者多个后，portal已经显示扩容成功，但还是无法播放视频，在azure media player出现类似以下错误。通常需要等待30分钟以上，才可以正常播放:
 
-![player-error2](media\aog-media-service-troubleshoot-faq\player-error2.png "MeidaServicePalyer出现0x30200193错误")
+![player-error2](media/aog-media-service-troubleshoot-faq/player-error2.png "MeidaServicePalyer出现0x30200193错误")
 
 
 ###解决方法:

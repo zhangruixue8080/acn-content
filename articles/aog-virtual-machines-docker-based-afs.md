@@ -134,6 +134,6 @@
 通过该驱动创建的共享文件夹，默认quota是5TB。您可能需要在Azure portal上去修改该quota值以适应您的需求。
 
 
-![modify-Quota](media\aog-virtual-machines-docker-based-afs\modify-Quota.png "修改AzurePortal中的Quota值.png")
+![modify-Quota](media/aog-virtual-machines-docker-based-afs/modify-Quota.png "修改AzurePortal中的Quota值.png")
 
 
