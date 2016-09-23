@@ -1,11 +1,11 @@
 #如何在Proxy环境下正确使用PowerShell工具发送web http请求
 
->PowerShell是一款非常实用的命令行界面和脚本编辑工具，同时我们也可以通过该工具来管理几乎所有azure上的资源。它可以被用来执行各种任务，其中包括脚本程序执行和命令提示行交互。
+PowerShell是一款非常实用的命令行界面和脚本编辑工具，同时我们也可以通过该工具来管理几乎所有azure上的资源。它可以被用来执行各种任务，其中包括脚本程序执行和命令提示行交互。
 
 然而在一定的特殊条件下，比如一些客户是在有代理(Proxy)的环境下工作，而这些代理需要一些基本的验证，当这些客户使用PowerShell时可能会遇到一些问题导致无法正常使用PowerShell工具。这篇文档就是讨论这种情况下，我们应该做哪些配置的调整，从而使得我们可以成功的使用PowerShell工具。
 
 ##问题症状：
-当我们在代理(Proxy)的环境下使用PowerShell执行一些不涉及到http请求的命令时正常，比如get-azurezccount；然而涉及到http请求的命令会报错，比如：
+当我们在代理(Proxy)的环境下使用PowerShell执行一些不涉及到http请求的命令时正常，比如`get-azureaccount`；然而涉及到http请求的命令会报错，比如：
 
 	get-azureVM/get-osversions -subscriptionId **** -certificate (get-item cert:\CurrentUser\MY\******)。
 
@@ -20,10 +20,14 @@
 	    + FullyQualifiedErrorId : Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.GetAzureVMCommand
 	
 	
-	Get-OSVersions : The remote server returned an unexpected response: (407) Proxy Authenti cation Required. At line:1 char:15 + get-osversions &lt;&lt;&lt;&lt; -subscriptionId * -certificate (get-item cert:\CurrentUser\MY*****) + CategoryInfo : CloseError: (:) [Get-OSVersions], ProtocolException + FullyQualifiedErrorId : Microsoft.Samples.AzureManagementTools.PowerShell.HostedS ervices.GetOSVersionsCommand
+	Get-OSVersions : The remote server returned an unexpected response: (407) Proxy Authenti cation Required. 
+	At line:1 char:15 + get-osversions &lt;&lt;&lt;&lt; -subscriptionId * -certificate (get-item cert:\CurrentUser
+	\MY*****) + CategoryInfo : CloseError: (:) [Get-OSVersions], ProtocolException + FullyQualifiedErrorId :
+	Microsoft.Samples.AzureManagementTools.PowerShell.HostedS ervices.GetOSVersionsCommand
 
 ##问题排查：
-从上面的报错信息来看，有些报错信息指向性比较模糊（get-azureVM），有一些则非常明确可以看到跟代理相关（get-osversions）。通常这种情况下，我们可以通过安装[fiddler](http://www.telerik.com/fiddler)工具来抓trace，进一步查看该问题。
+
+从上面的报错信息来看，有些报错信息指向性比较模糊（`get-azureVM`），有一些则非常明确可以看到跟代理相关（`get-osversions`）。通常这种情况下，我们可以通过安装[fiddler](http://www.telerik.com/fiddler)工具来抓trace，进一步查看该问题。
 
 抓取fiddler trace示例如下：
 
@@ -93,7 +97,8 @@ Class示例：
 		        }
 		    }
 		}   
- **注意：需要将对应的Proxy认证信息用真实环境信息代替。**
+	>**注意：需要将对应的Proxy认证信息用真实环境信息代替。**
+
 2. 将该.dll文件放在PowerShell对应路径下：  
 32位PowerShell路径：C:\Windows\System32\WindowsPowerShell\v1.0.  
 64位PowerShell路径：C:\Windows\SysWOW64\WindowsPowerShell\v1.0   
@@ -103,7 +108,9 @@ powershell.exe.config示例：
 		<defaultProxy enabled="true" useDefaultCredentials="false">
 		  <module type = "SomeNameSpace.MyProxy, SomeAssembly" />
 		</defaultProxy>
-**注意：该config文件中高亮部分需要跟生成的.dll文件名称一致才能正确识别代理信息。**
+
+	>**注意：该config文件中高亮部分需要跟生成的.dll文件名称一致才能正确识别代理信息。**
+	
 4. 将刚才创建好的powershell.exe.config放在PowerShell对应路径下，方法同2，这相当于向PowerShell导入一个代理信息。
 
 
