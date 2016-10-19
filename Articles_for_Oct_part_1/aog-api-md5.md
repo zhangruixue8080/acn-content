@@ -1,8 +1,13 @@
 # 如何调用 API 获取 File 文件的 MD5 #
+
 **问题：** 如何调用 API 获取 File 文件的 MD5
+
 **现象：** 文件以 Blob 形式存储，可以通过 API 取其 MD5 值。存储在 File 中，则提供的 API 获取 MD5 值为空
+
 1. .NET SDK 测试：
+
 	- 测试代码：
+
 			//file 文件测试
 			String filePath1 = "E:\\Background\\linux-087.jpg";
 			CloudFile cloudFile1 = rootDir.GetFileReference("image-03.jpg");
@@ -17,10 +22,13 @@
 			Console.WriteLine("md5=" + blob.Properties.ContentMD5);
 
 	- 测试结果：
+
 	![.net-test-result](media/aog-api-md5/net-test-result.png ".net-test-result")
 
 2. JAVA SDK 测试：
+
 	- 测试代码：	
+
     		//file 文件测试
     		final String filePath = "E:\\Background\\linux-087.jpg";
     		CloudFile cloudFile = rootDir.getFileReference("image-04.jpg");
@@ -35,6 +43,7 @@
     		System.out.println("md5="+blobFile.getProperties().getContentMD5());
  
 	- 测试结果：
+
 	![java-test-result](media/aog-api-md5/java-test-result.png "java-test-result")
 
 
