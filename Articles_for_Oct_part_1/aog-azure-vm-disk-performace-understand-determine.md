@@ -48,7 +48,7 @@ Azure 提供了标准存储和高级存储两种存储服务。针对于生产�
 
 从下图中可以看到根据文件的类型不同，整个过程分为三个阶段，
 
-![copy-file-1](media\aog-azure-vm-disk-performace-understand-determine\copy-file-1.png "copy-file-1")
+![copy-file-1](media/aog-azure-vm-disk-performace-understand-determine/copy-file-1.png "copy-file-1")
 
 - 系统在处理随机大小文件时，拷贝的性能在 10MB/s 到 25MB/s 之间变化。
 - 处理单个大文件的拷贝，性能上升到 40MB/s 以上，但是即便是对单个文件，拷贝性能也不稳定。
@@ -56,15 +56,15 @@ Azure 提供了标准存储和高级存储两种存储服务。针对于生产�
 
 如果我们多次重复文件的拷贝过程，随着文件系统碎片状态的变化，服务器 Cache 的使用情况变化等等，同样的文件拷贝性能的差异性很大。
 
-![copy-file-2](media\aog-azure-vm-disk-performace-understand-determine\copy-file-2.png "copy-file-2")
+![copy-file-2](media/aog-azure-vm-disk-performace-understand-determine/copy-file-2.png "copy-file-2")
 
 抛开用户界面上的性能指示，当我们使用 Perfmon 来具体分析单个磁盘的性能时，很明显，无论处理那种类型的文件拷贝，磁盘仍然未处于完全忙碌的状态。而磁盘的数据吞吐量和 IOPS 都处于不稳定状态
 
-![copy-file-perfmon-analysis-1](media\aog-azure-vm-disk-performace-understand-determine\copy-file-perfmon-analysis-1.png "copy-file-perfmon-analysis-1")
+![copy-file-perfmon-analysis-1](media/aog-azure-vm-disk-performace-understand-determine/copy-file-perfmon-analysis-1.png "copy-file-perfmon-analysis-1")
 
-![copy-file-perfmon-analysis-2](media\aog-azure-vm-disk-performace-understand-determine\copy-file-perfmon-analysis-2.png "copy-file-perfmon-analysis-2")
+![copy-file-perfmon-analysis-2](media/aog-azure-vm-disk-performace-understand-determine/copy-file-perfmon-analysis-2.png "copy-file-perfmon-analysis-2")
 
-![copy-file-perfmon-analysis-3](media\aog-azure-vm-disk-performace-understand-determine\copy-file-perfmon-analysis-3.png "copy-file-perfmon-analysis-3")
+![copy-file-perfmon-analysis-3](media/aog-azure-vm-disk-performace-understand-determine/copy-file-perfmon-analysis-3.png "copy-file-perfmon-analysis-3")
 
 根据以上的分析和测试我们可以确定，使用文件拷贝的方式无法科学地衡量磁盘的性能。
 
@@ -81,7 +81,7 @@ Azure 提供了标准存储和高级存储两种存储服务。针对于生产�
 
 由于篇幅所限，仅仅将 4K 大小的结果总结如下:
 
-![4k-stress-test-result](media\aog-azure-vm-disk-performace-understand-determine\4k-stress-test-result.png "4k-stress-test-result")
+![4k-stress-test-result](media/aog-azure-vm-disk-performace-understand-determine/4k-stress-test-result.png "4k-stress-test-result")
 
 同时，根据测试时生成的 Perfmon 日志，我们可以清晰地看到单个磁盘在进行测试时基本上保持在完全忙碌的状态，并体现出一致的 IO 性能指标(第一个测试为 4K 读写，第二个为 8K 读写，第三个为 64K 读写，每个测试区间前者为 E 卷，后者为 G 卷)
 - 当 IO 为 4K 时，单个磁盘吞吐量(Disk Bytes/sec)，D 卷和 G 卷在 2MB 左右，IOPS（Disk Transfer/sec）约为 480
@@ -89,11 +89,11 @@ Azure 提供了标准存储和高级存储两种存储服务。针对于生产�
 - 当 IO 为 4K 时，单个磁盘吞吐量(Disk Bytes/sec)，D 卷在 24MB 左右，G 卷约为 31MB，IOPS（Disk Transfer/sec）约为 450
 - 对于同一类测试，G 卷的性能要稍好于 E 卷。
 
-![4k-stress-test-perfmon-analysis-1](media\aog-azure-vm-disk-performace-understand-determine\4k-stress-test-perfmon-analysis-1.png "4k-stress-test-perfmon-analysis-1")
+![4k-stress-test-perfmon-analysis-1](media/aog-azure-vm-disk-performace-understand-determine/4k-stress-test-perfmon-analysis-1.png "4k-stress-test-perfmon-analysis-1")
 
-![4k-stress-test-perfmon-analysis-2](media\aog-azure-vm-disk-performace-understand-determine\4k-stress-test-perfmon-analysis-2.png "4k-stress-test-perfmon-analysis-2")
+![4k-stress-test-perfmon-analysis-2](media/aog-azure-vm-disk-performace-understand-determine/4k-stress-test-perfmon-analysis-2.png "4k-stress-test-perfmon-analysis-2")
 
-![4k-stress-test-perfmon-analysis-3](media\aog-azure-vm-disk-performace-understand-determine\4k-stress-test-perfmon-analysis-3.png "4k-stress-test-perfmon-analysis-3")
+![4k-stress-test-perfmon-analysis-3](media/aog-azure-vm-disk-performace-understand-determine/4k-stress-test-perfmon-analysis-3.png "4k-stress-test-perfmon-analysis-3")
 
 需要指出的是，尽管 DiskSPD 和 IOMeter 等工具都可以模拟不同的类型的 IO 请求，但他们同真实的生产环境中的 IO 模型还是有一定区别的。如果可能，尽可能使用生产环境的真实 IO 来判断当前的存储系统是否满足需求。
 

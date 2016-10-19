@@ -15,4 +15,4 @@
 	接下来 会提示输入密码，默认密码为 changeit，输入之后，选择‘是’将其安装到JDK 可信证书库中。
 3.	如果看到以下结果，则导入成功。
 
-	![certification-imoport-success](media\aog-java-import-wosign-certification\certification-import-success.png "certification-import-success")
+	![certification-imoport-success](media/aog-java-import-wosign-certification/certification-import-success.png "certification-import-success")

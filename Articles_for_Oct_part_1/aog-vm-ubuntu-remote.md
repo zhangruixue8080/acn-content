@@ -2,7 +2,7 @@
 
 1. 安装 Ubuntu 虚拟机，创建端口号为 3389 的 Endpoint.
 
-![install-ubuntu](media\aog-vm-ubuntu-remote\install-ubuntu.png "install-ubuntu")
+![install-ubuntu](media/aog-vm-ubuntu-remote/install-ubuntu.png "install-ubuntu")
 
 2. 安装 Gnome 桌面
 
@@ -16,11 +16,11 @@
 
 4. 修改配置文件 /etc/xrdp/startwm.sh，添加 xfce4-session 行
 
-![modify-setting-file](media\aog-vm-ubuntu-remote\modify-setting-file.png "modify-setting-file")
+![modify-setting-file](media/aog-vm-ubuntu-remote/modify-setting-file.png "modify-setting-file")
 
 5. 添加 xfce4-session
 		echo “xfce4-session” >~/.xsession
 
 6. RDP 连接到 ubuntu
 
-![remote-desktop](media\aog-vm-ubuntu-remote\remote-desktop.png "remote-desktop")
+![remote-desktop](media/aog-vm-ubuntu-remote/remote-desktop.png "remote-desktop")

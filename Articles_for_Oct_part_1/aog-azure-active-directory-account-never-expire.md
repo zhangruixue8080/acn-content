@@ -13,7 +13,7 @@ Azure AD 模块支持安装了默认版本的微软 .Net Framework 与 Windows P
 
 	$msolcred = Get-Credential
 	Connect-MsolService -Credential $msolcred -AzureEnvironment AzureChinaCloud
-![powershell-azure-ad-login](media\aog-azure-active-directory-account-never-expire\powershell-azure-ad-login.png "powershell-azure-ad-login")
+![powershell-azure-ad-login](media/aog-azure-active-directory-account-never-expire/powershell-azure-ad-login.png "powershell-azure-ad-login")
 
 **将密码设置为永不过期**
 若要将某位用户的密码设置为永不过期，请使用用户主体名称 (UPN) 或用户的用户 ID 运行以下命令：
@@ -28,13 +28,13 @@ Azure AD 模块支持安装了默认版本的微软 .Net Framework 与 Windows P
 若要查看某位用户的密码是否设置为永不过期，请使用用户主体名称 (UPN)（例如，aprilr@contoso.onmicrosoft.com）或要检查的用户的用户 ID 运行以下命令：
 
 	Get-MsolUser -UserPrincipalName <user ID> | Select PasswordNeverExpires
-![password-never-expire-single](media\aog-azure-active-directory-account-never-expire\password-never-expire-single.png "password-never-expire-single")
+![password-never-expire-single](media/aog-azure-active-directory-account-never-expire/password-never-expire-single.png "password-never-expire-single")
 
 **查看所有用户的密码永不过期**
 若要查看所有用户的密码永不过期设置，请运行以下命令：
 
 	Get-MsolUser | Select UserPrincipalName, PasswordNeverExpires
-![password-never-expire-all](media\aog-azure-active-directory-account-never-expire\password-never-expire-all.png "password-never-expire-all") 
+![password-never-expire-all](media/aog-azure-active-directory-account-never-expire/password-never-expire-all.png "password-never-expire-all") 
 
 **更多信息**
 [将本地标识与 Azure Active Directory 集成](https://www.azure.cn/documentation/articles/active-directory-aadconnect/#install-azure-ad-connect "https://www.azure.cn/documentation/articles/active-directory-aadconnect/#install-azure-ad-connect")

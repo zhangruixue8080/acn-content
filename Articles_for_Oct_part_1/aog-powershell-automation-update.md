@@ -10,11 +10,11 @@
 **确定当前 PowerShell 模块版本**
 在本地电脑中，打开 PowerShell，使用 `Get-Module -ListAvailable -Name <module name> | Select Version` 命令，列出用户关注的模块当前的版本。
 
-![powershell-version](media\aog-powershell-automation-update\powershell-version.png "powershell-version")
+![powershell-version](media/aog-powershell-automation-update/powershell-version.png "powershell-version")
 
 在[ Azure 传统门户](https://manage.windowsazure.cn/)里，找到自动化->自动化账户->资产，点击相应模块查看版本
 
-![automation-account-property](media\aog-powershell-automation-update\automation-account-property.png "automation-account-property")
+![automation-account-property](media/aog-powershell-automation-update/automation-account-property.png "automation-account-property")
 
 **准备 PowerShell 模块文件**
 由于 Azure 自动化服务需要 PowerShell 模块以 zip 文件的形式被上传，用户需要在安装了相应模块的本地电脑上找到并打包模块。
@@ -25,12 +25,12 @@
 需要注意某些模块可能依赖于其他模块，如安装 AzureRM.Resources 模块需要首先安装 AzureRM.Profile 模块。如果安装模块时报错，可以仔细查阅报错信息，并安装相应的前提模块。更多排错信息，请参阅[常见 Azure 自动化错误的错误处理提示](https://www.azure.cn/documentation/articles/automation-troubleshooting-automation-errors/)。
 
 
-![powershell-model](media\aog-powershell-automation-update\powershell-model.png "powershell-model")
+![powershell-model](media/aog-powershell-automation-update/powershell-model.png "powershell-model")
 
-![select-module-import](media\aog-powershell-automation-update\select-module-import.png "select-module-import")
+![select-module-import](media/aog-powershell-automation-update/select-module-import.png "select-module-import")
 
 
-![automation-account-property](media\aog-powershell-automation-update\automation-account-property.png "automation-account-property")
+![automation-account-property](media/aog-powershell-automation-update/automation-account-property.png "automation-account-property")
 
 **真实案例**
 客户的脚本在本地电脑 PowerShell 与 Azure 自动化服务上输出的数据格式不一致，脚本在自动化服务上正常运行需要将输出数据进行格式转换，且容易报错。支持团队排查后发现 Azure 自动化服务的 PowerShell 模块版本为 1.0.3，本地电脑 PowerShell 模块版本为 3.2.0。更新 Azure 自动化服务模块版本至 3.2.0 后解决了问题。
