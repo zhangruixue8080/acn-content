@@ -23,7 +23,7 @@
 
 	- 测试结果：
 
-		![.net-test-result](media/aog-api-md5/net-test-result.png ".net-test-result")
+	![.net-test-result](media/aog-api-md5/net-test-result.png ".net-test-result")
 
 2. JAVA SDK 测试：
 
@@ -44,11 +44,11 @@
  
 	- 测试结果：
 
-		![java-test-result](media/aog-api-md5/java-test-result.png "java-test-result")
+	![java-test-result](media/aog-api-md5/java-test-result.png "java-test-result")
 
 
 **问题原因：** 由于 File 本身应用形式为磁盘，而文件的一些更新等动作会导致 MD5 重新计算，这对于磁盘能影响较大，因此暂不支持 MD5 自动生成。而 Block Blob 本身而言并不支持修改操作，文件的 MD5 值相对稳定。参考：[https://azure.microsoft.com/en-us/documentation/articles/storage-dotnet-how-to-use-files/#develop-with-file-storage](https://azure.microsoft.com/en-us/documentation/articles/storage-dotnet-how-to-use-files/#develop-with-file-storage  "https://azure.microsoft.com/en-us/documentation/articles/storage-dotnet-how-to-use-files/#develop-with-file-storage ") 
 
-**解决方法：** 如果一定要应用这种特性，建议考虑 Blob Storage 或者手动方式计算 File 的 MD5。
+**解决方法：** 如果一定要应用这种特性，建议考虑 Blob Storage 或者手动方式计算 File 的 MD5
 
 
