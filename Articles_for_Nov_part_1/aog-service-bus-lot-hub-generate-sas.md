@@ -16,7 +16,7 @@
 
 从以上描述可知，两者的区别主要在于是否需要对秘钥进行 decode。代码分别如下：
 
-    HMACSHA256 hmac = new HMACSHA256(Convert.FromBase64String(key)); // decode the key
+    // HMACSHA256 hmac = new HMACSHA256(Convert.FromBase64String(key)); // decode the key
     HMACSHA256 hmac = new HMACSHA256(Encoding.UTF8.GetBytes(key)); // don't decode the key
 
 如果您是使用 C# 做开发，可以通过以下方法生成 SAS Token:
@@ -28,7 +28,7 @@
 		    var expiry = GetExpiry(ttl);
 		    string stringToSign = HttpUtility.UrlEncode(resourceUri) + "\n" + expiry;
 		    // HMACSHA256 hmac = new HMACSHA256(Convert.FromBase64String(key)); for IoT Hub Service
-		    // HMACSHA256 hmac = new HMACSHA256(Encoding.UTF8.GetBytes(key)); for service bus Service
+		    HMACSHA256 hmac = new HMACSHA256(Encoding.UTF8.GetBytes(key)); for service bus Service
 		    var signature = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(stringToSign)));
 		    var sasToken = String.Format(CultureInfo.InvariantCulture, "SharedAccessSignature sr={0}&sig={1}&se={2}&skn={3}", 
 		    HttpUtility.UrlEncode(resourceUri), HttpUtility.UrlEncode(signature), expiry, keyName);

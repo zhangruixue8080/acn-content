@@ -35,7 +35,7 @@ Azure 应用程序网关会通过探测机制去了解后端服务器的健康�
 
 - Name - 自定义探测的引用名称。
 - Protocol - 使用的协议（可能的值为 HTTP 或 HTTPS）。
-- Host 和 Path - 应用程序网关为了确定实例运行状况而调用的完整 URL 路径。例如，如果网站为 http://www.contoso.com/，则可以为 “http://www.contoso.com/path/custompath.htm” 配置自定义探测，使探测检查能够获得成功的 HTTP 响应。
+- Host 和 Path - 应用程序网关为了确定实例运行状况而调用的完整 URL 路径。例如，如果网站为 [http://www.contoso.com/](http://www.contoso.com/)，则可以为 “[http://www.contoso.com/path/custompath.htm](http://www.contoso.com/path/custompath.htm)” 配置自定义探测，使探测检查能够获得成功的 HTTP 响应。
 - Interval - 配置探测检查间隔，以秒为单位。
 - Timeout - 定义 HTTP 响应检查的探测超时。
 - UnhealthyThreshold - 将后端实例标记为不正常所需的失败 HTTP 响应数目。
@@ -43,9 +43,11 @@ Azure 应用程序网关会通过探测机制去了解后端服务器的健康�
 对于使用经典模式创建的应用程序网关只能使用 PowerShell 来进行操作。具体操作步骤如下：
 
 1. 运行下面的 PowerShell 命令导出应用程序网关的配置信息。
+
        Get-AzureApplicationGatewayConfig -Name <application gateway name> -Exporttofile "<path to file>"
 
 2. 打开导出的文件并找到 FrontendPorts 部分，并在其之后添加 Probes 字段。Host 部分就填写 Web 服务器中所绑定的主机名，其他部分可以根据实际需求进行配置。
+
        <FrontendPorts>
            <FrontendPort>
                <Name>FrontendPort1</Name>
@@ -64,6 +66,7 @@ Azure 应用程序网关会通过探测机制去了解后端服务器的健康�
        </Probes>
 
 3. 在 XML 的 backendHttpSettings 节中，添加字段 “<Probe>Probe01</Probe>” 启用在步骤 2 中创建的探针，示例如下：
+
        <BackendHttpSettings>
            <Name>setting1</Name>
            <Port>80</Port>
@@ -74,10 +77,11 @@ Azure 应用程序网关会通过探测机制去了解后端服务器的健康�
        </BackendHttpSettings>
 
 4. 运行下面的命令对应用程序网关进行配置。
+
        Set-AzureApplicationGatewayConfig -Name <application gateway name> -Configfile "<path to file>"
 
-注意：请使用最新版本的 Azure PowerShell 来进行配置，如果使用的 PowerShell 版本较老可能会导致该操作不成功。
+>注意：请使用最新版本的 Azure PowerShell 来进行配置，如果使用的 PowerShell 版本较老可能会导致该操作不成功。
 
 对于使用 ARM 模式创建的应用程序网关，我们可以直接在 Portal 直接进行配置。如下图所示，点击探测，然后添加探测规则并进行配置即可。
  
-![Portal-ARMAppGw](./media/aog-web-apps-gateway-error-bind-host-name/Portal-ARMAppGw.png)
+![Portal-ARMAppGw](./media/aog-web-apps-bind-host-name-gateway-unusable/Portal-ARMAppGw.png)

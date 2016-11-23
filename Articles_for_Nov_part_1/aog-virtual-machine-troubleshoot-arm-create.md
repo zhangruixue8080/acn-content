@@ -1,8 +1,8 @@
-# 订阅无法在 ARM 模式下创建虚拟机，只能在 AS 模式下创建 Azure VM部署 #
+# 订阅无法在 ARM 模式下创建虚拟机，只能在 ASM 模式下创建 Azure VM部署 #
 
 **问题：**
 
-Resource Group 所有者可以在新版portal创建经典模式的虚拟机，但是无法创建ARM模式 的虚拟机。
+Resource Group 所有者可以在新版portal创建经典模式的虚拟机，但是无法创建ARM模式的虚拟机。
 
 **现象：**
 
