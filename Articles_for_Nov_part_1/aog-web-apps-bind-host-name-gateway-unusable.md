@@ -44,41 +44,41 @@ Azure 应用程序网关会通过探测机制去了解后端服务器的健康�
 
 1. 运行下面的 PowerShell 命令导出应用程序网关的配置信息。
 
-       Get-AzureApplicationGatewayConfig -Name <application gateway name> -Exporttofile "<path to file>"
+		Get-AzureApplicationGatewayConfig -Name <application gateway name> -Exporttofile "<path to file>"
 
 2. 打开导出的文件并找到 FrontendPorts 部分，并在其之后添加 Probes 字段。Host 部分就填写 Web 服务器中所绑定的主机名，其他部分可以根据实际需求进行配置。
 
-       <FrontendPorts>
-           <FrontendPort>
-               <Name>FrontendPort1</Name>
-               <Port>80</Port>
-           </FrontendPort>
-       </FrontendPorts>
-           <Probes>
-               <Probe>
-               <Name>Probe01</Name>
-               <Protocol>Http</Protocol>
-               <Host>www.contoso.com</Host>
-               <Path>/</Path>
-               <Interval>15</Interval>
-               <UnhealthyThreshold>5</UnhealthyThreshold>
-           </Probe>
-       </Probes>
+		<FrontendPorts>
+		   <FrontendPort>
+		       <Name>FrontendPort1</Name>
+		       <Port>80</Port>
+		   </FrontendPort>
+		</FrontendPorts>
+		   <Probes>
+		       <Probe>
+		       <Name>Probe01</Name>
+		       <Protocol>Http</Protocol>
+		       <Host>www.contoso.com</Host>
+		       <Path>/</Path>
+		       <Interval>15</Interval>
+		       <UnhealthyThreshold>5</UnhealthyThreshold>
+		   </Probe>
+		</Probes>
 
 3. 在 XML 的 backendHttpSettings 节中，添加字段 “<Probe>Probe01</Probe>” 启用在步骤 2 中创建的探针，示例如下：
 
-       <BackendHttpSettings>
-           <Name>setting1</Name>
-           <Port>80</Port>
-           <Protocol>Http</Protocol>
-           <CookieBasedAffinity>Enabled</CookieBasedAffinity>
-           <RequestTimeout>30</RequestTimeout>
-           <Probe>Probe01</Probe>
-       </BackendHttpSettings>
+		<BackendHttpSettings>
+		   <Name>setting1</Name>
+		   <Port>80</Port>
+		   <Protocol>Http</Protocol>
+		   <CookieBasedAffinity>Enabled</CookieBasedAffinity>
+		   <RequestTimeout>30</RequestTimeout>
+		   <Probe>Probe01</Probe>
+		</BackendHttpSettings>
 
 4. 运行下面的命令对应用程序网关进行配置。
 
-       Set-AzureApplicationGatewayConfig -Name <application gateway name> -Configfile "<path to file>"
+		Set-AzureApplicationGatewayConfig -Name <application gateway name> -Configfile "<path to file>"
 
 >注意：请使用最新版本的 Azure PowerShell 来进行配置，如果使用的 PowerShell 版本较老可能会导致该操作不成功。
 
