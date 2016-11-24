@@ -2,11 +2,11 @@
 
 **问题：**
 
-之前一直使用导入 publishsetting 的方式登录由世纪互联运营的 azure 账户，不是很方便。
+对于在 Visual Studio 2015 上登录由世纪互联运营的 Azure 账户，通常方法是使用导入 publishsetting 的方式，而此方法比较繁琐并不是十分便捷。
 
 **解决方法：**
 
-Visual Studio2015 的 azure 服务资源管理器默认是连接由微软运营的（国际版） Azure，在 VS2015 update2 之前的版本都是无法通过账号登陆的，所以如果想要使用账号登录，必须升级到 VS2015 update2 以上的版本，参考以下说明，设置你的 Visual Studio 2015 。
+Visual Studio 2015 的 Azure 服务资源管理器默认是连接由微软运营的（国际版） Azure，在 VS2015 update2 之前的版本都是无法通过账号登陆的，所以如果想要使用账号登录，必须升级到 VS2015 update2 以上的版本，参考以下说明，设置你的 Visual Studio 2015 。
 
  - **前提**
 
