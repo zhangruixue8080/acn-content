@@ -1,6 +1,6 @@
 # 关于部署在 cloud service 下的 Java 应用程序会出现 Staging 环境被 “同步” 到 Production 环境的问题 #
 
-**问题描述：**
+### 问题描述 ###
 
 在使用 Java+eclipse 做应用程序开发时，会将开发好的应用程序 code 发布到 azure cloud service staging 环境做测试观察，如果运行稳定，可以将相关更新后的 code 发布到正式的 Production 环境中或者使用 swap 的功能切换环境。
 
@@ -10,7 +10,7 @@
 2. 在用 eclipse 发布相关应用到 staging 环境和 Production 环境中时使用的是同一个 storage account。
 3. 将相关更新后的应用程序 code 发布到 staging 环境（Production 环境中依旧是旧版本的应用程序 code），并且重启 Production 环境中的实例。
 
-**问题原因：**
+### 问题分析 ###
 
 当使用 .NET +Visual Studio 做开发，同样为 staging 环境和 Production 环境配置同一个 storage account 却不会出现同样的问题。因此，需要了解 .NET +Visual Studio 以及 Java+eclipse 在发布应用程序到 cloud service 时配置的 storage account 分别是做什么用的：
 
@@ -28,7 +28,7 @@
 
 而在使用 .NET +Visual Studio 发布应用程序时，客户的 code 会被 cloud service 放在 azure 后台单独的 storage account 中，针对不同的环境，该 storage account 会不同，因此不会出现 staging 环境的 code 跟 Production 环境中的 code 使用同一 storage account 的问题。
 
-**解决方法：**
+### 解决方法 ###
 
 根据以上分析，可以了解到当使用 Java+eclipse 做开发时，staging 与 Production 环境共享同一 storage account，应用 code 会被重写，因此会有一定的几率出现“被同步”的问题。
 针对这种情况，建议在使用 Java+eclipse 做开发部署到 cloud service 中时，为 staging 和 Production 环境配置两个不同的 storage account。

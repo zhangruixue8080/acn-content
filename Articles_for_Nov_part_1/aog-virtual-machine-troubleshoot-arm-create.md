@@ -1,16 +1,16 @@
 # 订阅无法在 ARM 模式下创建虚拟机，只能在 ASM 模式下创建 Azure VM部署 #
 
-**问题：**
+### 问题描述 ###
 
 Resource Group 所有者可以在新版portal创建经典模式的虚拟机，但是无法创建ARM模式的虚拟机。
 
-**现象：**
+### 问题现象 ###
 
 环境中有个相对权限比较高的 account，比如 account admin，用这个账号创建一个 resource group 和对应的 owner。
 
 如果用这个 resource group 的 owner 登陆 azure，会出现这个问题：只能创建经典模式的虚拟机，但无法创建 ARM 模式的虚拟机。
 
-**问题原因：**
+### 问题分析 ###
 
 ARM下很多resource provider没有注册，包括ARM下的Microsoft.Compute：
 <table><tr><th> NameSpace </th><th> RegistrationState </th></tr>
@@ -44,7 +44,7 @@ ARM下很多resource provider没有注册，包括ARM下的Microsoft.Compute：
 <tr><td> Microsoft.Storage </td><td style="background:red"> NotRegistered </td></tr></table>
 AA 创建的 resource group 的 owner 之所以没有自动注册 resource provider 是由于 AA 的权限导致的。如果 AA 没有创建过 VM，那么就没有自动注册过 resource provider，所以 AA 所创建的 resource group 的 owner 也没有这个权限。
 
-**解决方法：**
+### 解决方法 ###
 
 基于以上理论，解决方案有两个：
 

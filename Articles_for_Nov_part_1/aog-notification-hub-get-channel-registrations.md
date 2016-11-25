@@ -7,9 +7,11 @@ Azure 的通知中心提供的是跨平台设备的支持，以及超大吞吐�
 当需要查阅一批客户端注册信息的时候，一般都可以通过标签来查询。那么当需要查阅某一特定客户端注册信息呢？当然我们也可以把通道信息作为标签信息来查询，但其实有更直接的办法，就是直接通过通道信息来获取。
 
 在官方提供的 [Java SDK](https://github.com/Azure/azure-notificationhubs-java-backend) 里面，有个方法是 GetRegistrationsByChannel，但是这个方法其实只适用于微软平台，因为它发出的 http 请求用的通道过滤条件名称是 ChannelUri。而不同平台提供的通道信息名称都是不一样的，分别如下：
+
 <table><tr><th> 平台 </th><th> 通道名称 </th></tr>
 <tr><td> 微软（WNS, MPNS）</td><td> ChannelUri </td></tr>
 <tr><td> 苹果（APNS） </td><td> DeviceToken </td></tr>
 <tr><td> 谷歌（GCM） </td><td> GcmRegistrationId </td></tr>
 <tr><td> 百度（Baidu） </td><td> BaiduUserId-BaiduChannelId </td></tr></table>
+
 因此，需要根据不同的平台发出不同的请求。SDK 相关方法的缺失已经[提交请求](https://github.com/Azure/azure-notificationhubs-java-backend/issues/19)。另外我自己根据通知中心的 [REST API](https://msdn.microsoft.com/en-us/library/azure/dn223271.aspx) 实现了使用百度通道信息的查询。在 SDK 提供相关方法之前，大家可以修改 SDK 按照 GetRegistrationsByChannel 方法实现不同平台的查询，也可以模拟我的方法来实现，具体代码可在 [MSDN](https://code.msdn.microsoft.com/How-to-get-registrations-ca498761#content) 上下载。

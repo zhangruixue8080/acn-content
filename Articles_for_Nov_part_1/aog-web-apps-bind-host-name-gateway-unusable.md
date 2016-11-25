@@ -1,17 +1,17 @@
 # 如何解决当 Web 应用绑定了主机名而无法使用应用程序网关的问题 #
 
-**问题：**
+### 问题描述 ###
 
 当 Web 应用绑定了主机名并使用 Azure 应用程序网关作为负载均衡器的情形下，该网页可能无法正常访问。
 
-**现象：**
+### 问题分析 ###
 
 访问网页时，浏览器会直接弹出下面的报错：
 
     502 - Web server received an invalid response while acting as a gateway or proxy server.
     There is a problem with the page you are looking for, and it cannot be displayed. When the Web server (while acting as a gateway or proxy) contacted the upstream content server, it received an invalid response from the content server.
 
-**解决方法：**
+### 解决方法 ###
 
 Azure 应用程序网关会通过探测机制去了解后端服务器的健康状态，其默认会使用 HTTP 协议作为探测机制。如果我们没有配置自定义探针，应用程序网关会发送主机名为 127.0.0.1 路径为 “/ ” 的 HTTP GET 请求。当后端 Web 服务器绑定了主机名，这会导致 Web 服务器不会对应用程序网关的 HTTP 请求返回正确的 HTTP 响应，进而会导致应用程序网关向客户端抛出 502 的报错。
 
