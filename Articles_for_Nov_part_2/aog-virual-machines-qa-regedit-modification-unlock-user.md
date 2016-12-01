@@ -15,26 +15,27 @@
 
 	![regedit](./media/aog-virual-machines-qa-regedit-modification-unlock-user/regedit.png)
 
-5. 选择 HKEY_USERS，然后点击左上角 FILE 菜单，选择 Load Hive；
+6. 选择 HKEY_USERS，然后点击左上角 FILE 菜单，选择 Load Hive；
 
 	![regedit-hkey-users-file-load-hive](./media/aog-virual-machines-qa-regedit-modification-unlock-user/regedit-hkey-users-file-load-hive.png)
 
-6. 在打开的窗口里，进入目录 F:\Windows\System32\Config，选择 SAM 文件，并点击打开；
+8. 在打开的窗口里，进入目录 F:\Windows\System32\Config，选择 SAM 文件，并点击打开；
 
 	![SAM](./media/aog-virual-machines-qa-regedit-modification-unlock-user/SAM.png)
 
-7. 在键值输入框里输入 SAM_TEMP (或者其他任意名称)，点击 OK；
+10. 在键值输入框里输入 SAM_TEMP (或者其他任意名称)，点击 OK；
 
 	![sam-temp](./media/aog-virual-machines-qa-regedit-modification-unlock-user/sam-temp.png)
 
-8. 展开 SAM 注册表键值 `SAM_TEMP\SAM\Domains\Account\Users\000001F4`, 双击”F”键值；
+12. 展开 SAM 注册表键值 `SAM_TEMP\SAM\Domains\Account\Users\000001F4`, 双击”F”键值；
 
 	![000001F4-F](./media/aog-virual-machines-qa-regedit-modification-unlock-user/000001F4-F.png)
 
-9. 修改 0038 行的值 11 为 10,然后点击 OK；
+14. 修改 0038 行的值 11 为 10,然后点击 OK；
 
 	![0038-11](./media/aog-virual-machines-qa-regedit-modification-unlock-user/0038-11.png)
 	![0038-10](./media/aog-virual-machines-qa-regedit-modification-unlock-user/0038-10.png)
 
-10. 返回选择 SAM_TEMP,点击左上角 FILE 菜单,选择 Unload Hive,点击 Yes 确认；
-11. 分离磁盘, 并基于该磁盘新建虚拟机, 再次尝试用相同的用户登陆该虚拟机。
+
+16. 返回选择 SAM_TEMP,点击左上角 FILE 菜单,选择 Unload Hive,点击 Yes 确认；
+17. 分离磁盘, 并基于该磁盘新建虚拟机, 再次尝试用相同的用户登陆该虚拟机。
