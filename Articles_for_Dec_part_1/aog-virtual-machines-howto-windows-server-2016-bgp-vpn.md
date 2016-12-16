@@ -39,7 +39,7 @@ VNET2 所对应的 VPN gateway AS 号为 `65011`，Peer 地址为 `10.5.1.254`�
 ### Azure端配置 ###
 
 由于我们已经有现有的文章来讲述如何在 Azure 端进行配置，所以本文不再赘述。具体的配置细节请参考下面的文档：  
-[如何使用 Azure 资源管理器 和 PowerShell 在 Azure VPN 网关上配置 BGP](/documentation/articles/vpn-gateway-bgp-resource-manager-ps)  
+[如何使用 Azure 资源管理器 和 PowerShell 在 Azure VPN 网关上配置 BGP](/documentation/articles/vpn-gateway-bgp-resource-manager-ps)。  
 这里仅提一下两个需要注意的地方：  
 
 1. VNET1 的 VPN gateway AS 号是自定义的，但是 Peer 地址是通过命令获取的，需要通过 BgpSettingsText 字段进行获取。对于 VNET2 也是同样的道理。

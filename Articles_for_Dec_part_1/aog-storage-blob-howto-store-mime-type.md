@@ -43,6 +43,8 @@ Azure Blob 存储支持大部分常见的互联网媒体类型，并将媒体类
 
 ![properties](./media/aog-storage-blob-howto-store-mime-type/properties.png)
 
+>[AZURE.NOTE] Azure Storage Explorer 在 `0.8.6` 及以上版本才有修改 Blob 及文件的属性的功能。如发现无法修改 Blob 属性，请升级至最新版。
+
 对于一个 Blob 容器内所有文件的批处理，可以参考 PowerShell 脚本 [How to batch change the content type of Microsoft Azure blob storage(PowerShell)](https://gallery.technet.microsoft.com/How-to-batch-change-the-47e310b4)。
 
 ### 改好文件的媒体类型后，浏览器仍然提示下载或报错 ###
