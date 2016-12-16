@@ -39,7 +39,7 @@ Azure AD 提供一组不同的管理角色，用于管理目录和标识相关�
 
 截至目前（2016年12月）为止，Azure 中国的 Azure AD 不支持 Microsoft 账户用户，也不支持 Azure AD B2B 合作功能。由此带来的限制如下：  
 
-1. 无法为独立的 Azure AD 目录添加来自其他目录的来宾账号；  
+1. 无法为独立的 Azure AD 目录添加来自其他目录的来宾账号。  
 2. 用户无法更改 Azure 订阅与 Azure AD 的信任关系。  
 
 在 Azure 中国，由于以上功能的限制，当用户分别创建两个 Azure AD 目录 AAA 和 BBB 并购买订阅之后，无法将两个目录相关联。  
@@ -60,5 +60,5 @@ Azure AD 提供一组不同的管理角色，用于管理目录和标识相关�
 
 ##相关信息  
 
-- 若要了解有关如何在 Azure 中控制资源访问的详细信息，请参阅[了解 Azure 中的资源访问权限](/documentation/articles/active-directory-understanding-resource-access/)；
+- 若要了解有关如何在 Azure 中控制资源访问的详细信息，请参阅[了解 Azure 中的资源访问权限](/documentation/articles/active-directory-understanding-resource-access/)。
 - 有关如何在 Azure AD 中分配角色的详细信息，请参阅[在 Azure Active Directory 中分配管理员角色](/documentation/articles/active-directory-assign-admin-roles/)。

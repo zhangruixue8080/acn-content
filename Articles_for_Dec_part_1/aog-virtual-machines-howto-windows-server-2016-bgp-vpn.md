@@ -74,7 +74,7 @@ VNET2 所对应的 VPN gateway AS 号为 `65011`，Peer 地址为 `10.5.1.254`�
 
 ### Server 2016 配置 ###
 
-1. 打开 Server 2016 的 PowerShell ISE，运行下面的 PowerShell  Script 命令配置 RRAS；
+1. 打开 Server 2016 的 PowerShell ISE，运行下面的 PowerShell  Script 命令配置 RRAS。
 
     请将脚本中的 1.2.3.4 全部替换成您的实际环境中 VNET1 VPN gateway 的 IP 地址。
     如果需要修改共享密钥，请修改 Add-VpnS2SInterface 命令中的 SharedSecret 参数的值。
@@ -148,7 +148,7 @@ VNET2 所对应的 VPN gateway AS 号为 `65011`，Peer 地址为 `10.5.1.254`�
 	# Dial-in to Azure gateway
 	Connect-VpnS2SInterface -Name 1.2.3.4
     ```
-2. PowerShell 配置本地 BGP；
+2. PowerShell 配置本地 BGP。
 
     ```PowerShell
 	#建立BGP Peer，192.168.37.1是我这边测试环境的内网网卡地址
@@ -158,11 +158,11 @@ VNET2 所对应的 VPN gateway AS 号为 `65011`，Peer 地址为 `10.5.1.254`�
 	#将内网网卡的路由进行BGP发布，网卡的名字需要根据实际情况修改
 	Add-BgpCustomRoute -Interface LAN
     ```
-3. 配置静态路由将 Azure VNET1 VPN gateway 的 Peer 地址指向步骤 1 中建立的 VPN tunnel；
+3. 配置静态路由将 Azure VNET1 VPN gateway 的 Peer 地址指向步骤 1 中建立的 VPN tunnel。
 
     ![static-routes](./media/aog-virtual-machines-howto-windows-server-2016-bgp-vpn/static-routes.png)
 
-4. 查看 BGP Peer 连接状态；
+4. 查看 BGP Peer 连接状态。
 
     从下面的结果可以看到 BGP 是连接状态（connected）。
 
@@ -173,7 +173,7 @@ VNET2 所对应的 VPN gateway AS 号为 `65011`，Peer 地址为 `10.5.1.254`�
 		-------- -------------- ------------- ------- ------------- ------------------
 		AzureS2S 192.168.37.1   10.3.1.254    65010   Mixed         Connected         
 
-5. 查看本地获取的路由信息；
+5. 查看本地获取的路由信息。
  
     从下面的结果可以看到 VPN 设备一共收到了三条路由：  
     `10.3.0.0/16` 是 VNET1 的网络地址空间；  
@@ -187,7 +187,7 @@ VNET2 所对应的 VPN gateway AS 号为 `65011`，Peer 地址为 `10.5.1.254`�
 		10.5.0.0/16        10.3.1.254 AzureS2S        Best               
 		10.5.1.254/32      10.3.1.254 AzureS2S        Best               
 
-6. 测试连通性；
+6. 测试连通性。
 
     `10.3.0.4` 是 VNET1 内的一台 Azure 虚拟机的内网 IP；  
     `10.5.0.4` 是 VNET2 内的一台 Azure 虚拟机的内网 IP。  
