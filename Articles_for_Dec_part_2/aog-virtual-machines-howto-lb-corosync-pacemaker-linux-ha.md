@@ -152,7 +152,7 @@ CentOS 7默认开启了 SeLinux 增强安全功能，为方便 demo，这里关�
 
 用全盘做一个主分区 `/dev/sdc1`, 不需要格式化成任何文件系统，该分区将由 DRBD 接管，文件系统将建立在 DRBD 设备上。
 
-```Linux Kernel Module
+```sh
 # fdisk /dev/sdc
 ```
   
