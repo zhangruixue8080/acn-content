@@ -152,13 +152,13 @@ CentOS 7默认开启了 SeLinux 增强安全功能，为方便 demo，这里关�
 
 用全盘做一个主分区 `/dev/sdc1`, 不需要格式化成任何文件系统，该分区将由 DRBD 接管，文件系统将建立在 DRBD 设备上。
 
-```Linux Kernel Module
+```Shell
 # fdisk /dev/sdc
 ```
   
 配置 yum 仓库以及后续需要使用的安装包。
 
-```Linux Kernel Module
+```Shell
 # wget http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
 # rpm -ivh elrepo-release-7.0-2.el7.elrepo.noarch.rpm
 # rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-elrepo.org
@@ -171,13 +171,13 @@ CentOS 7默认开启了 SeLinux 增强安全功能，为方便 demo，这里关�
 
 安装 DRBD 模块。
 
-```Linux Kernel Module
+```Shell
 # yum install kmod-drbd84 drbd84-utils
 ```
 
 加载 DRBD 内核模块，使用 lsmod 查看是否加载成功。
 
-```Linux Kernel Module
+```Shell
 # modprobe drbd
 # lsmod | grep drbd
 ```
@@ -187,7 +187,7 @@ CentOS 7默认开启了 SeLinux 增强安全功能，为方便 demo，这里关�
 在两个节点上，新建一个DRBD 资源。  
 命令中的 `mysqlr0`,`lqi1ecmy01`,`10.0.1.4`,`lqilecmy02`,`10.0.1.5` 部分根据自己的环境替换。
 
-```Linux Kernel Module
+```Shell
 # vi /etc/drbd.d/mysqlr0.res
 resource mysqlr0 {
 protocol C;
@@ -208,13 +208,13 @@ protocol C;
 
 初始化 DRBD 资源，在两个节点上分别执行：
 
-```Linux Kernel Module
+```Shell
 # drbdadm create-md mysqlr0
 ```
 
 启动 DRBD 服务，一个节点上执行 start 命令后，立刻在另一个节点同步执行，两条命令执行完毕，DRDB 服务将成功启动。使用 status 命令查看服务状态，使用 enable 命令设置开机自启动。  
 
-```Linux Kernel Module
+```Shell
 # systemctl start drbd
 # systemctl status drbd
 # systemctl enable drbd
@@ -222,19 +222,19 @@ protocol C;
 
 选择其中一个节点执行下面命令。命令执行成功，该节点将成为 DRBD 主节点，另一节点成为备用节点，并开始第一次状态和数据同步。
 
-```Linux Kernel Module
+```Shell
 # drbdadm primary mysqlr0 --force
 ```
 
 使用下面命令查看同步状态，你可能看到 DRBD 处于 sync 状态。等待 sync 成功，两节点都变成 UptoDate 状态，再进行下一步操作。
 
-```Linux Kernel Module
+```Shell
 #cat /proc/drbd 
 ```  
 
 或者   
 
-```Linux Kernel Module
+```Shell
 # drbd-overview
 ```
 
@@ -242,7 +242,7 @@ protocol C;
 
 在创建的 DRBD 资源上创建文件系统并挂载。在主节点上执行：
 
-```Linux Kernel Module
+```Shell
 # mkfs.ext3 /dev/drbd1
 # mkdir /var/lib/mysql
 # mount /dev/drbd1 /var/lib/mysql/
@@ -254,27 +254,27 @@ DRBD 配置完成，接下来安装 MariaDB 服务器。
 
 在主节点上执行如下命令，并初始化 mysql 安装选项。
 
-```Linux Kernel Module
+```Shell
 #yum install mariadb-server
 #/usr/bin/mysql_secure_installation
 ```
 
 接着在备用节点上安装数据库。首先停止主节点上相关服务：
 
-```Linux Kernel Module
+```Shell
 # systemctl stop mariadb.service
 # umount /var/lib/mysql/
 # drbdadm secondary mysqlr0
 ```
 或者
 
-```Linux Kernel Module
+```Shell
 # drbdadm secondary mysqlr0 --force
 ```
 
 在另一节点上：
 
-```Linux Kernel Module
+```Shell
 # drbdadm primary mysqlr0
 # mount /dev/drbd1 /var/lib/mysql
 # yum install mariadb-server
@@ -282,7 +282,7 @@ DRBD 配置完成，接下来安装 MariaDB 服务器。
 
 然后在该节点上登录数据库，创建 web 应用需要的数据库和用户。
 
-```Linux Kernel Module
+```Shell
 # mysql -u root -p
 MariaDB [(none)]> create database wordpress;
 Query OK, 1 row affected (0.04 sec)
@@ -296,11 +296,11 @@ Query OK, 0 rows affected (0.00 sec)
 MariaDB [(none)]> exit
 Bye
 ```
-###配置 Pacemaker + Corosync
+### 配置 Pacemaker + Corosync
 
 在两个节点上分别执行如下命令。
 
-```Linux Kernel Module
+```Shell
 # yum install corosync pacemaker pcs
 # systemctl start pcsd.service
 # systemctl enable pcsd.service
@@ -308,14 +308,14 @@ Bye
 
 为集群用户设置密码，该用户将用来在集群节点间通信，进行数据同步。下面步骤仅需要在某一节点上执行。
 
-```Linux Kernel Module
+```Shell
 # passwd hacluster
 # pcs cluster auth lqi1ecmy01 lqi1ecmy02
 ```
 
 创建集群，启动集群，查看集群状态。
 
-```Linux Kernel Module
+```Shell
 # pcs cluster setup --name mysqlcluster lqi1ecmy01 lqi1ecmy02
 # pcs cluster start –all
 # pcs status
@@ -323,19 +323,19 @@ Bye
 
 因为虚拟机没有真正的 fence 设备，所以需要禁用 fence 功能。
 
-```Linux Kernel Module
+```Shell
 # pcs property set stonith-enabled=false
 ```
 
 因为两节点集群不需要在 vote 功能，所以禁用 quorum。
 
-```Linux Kernel Module
+```Shell
 pcs property set no-quorum-policy=ignore
 ```
 
 添加集群资源，将 DRBD，文件系统和MariaDB服务纳入集群管理，并设置彼此之间的依赖关系。
 
-```Linux Kernel Module
+```Shell
 # pcs -f drbd_cfg resource create drbd_ha ocf:linbit:drbd drbd_resource=mysqlr0 op monitor interval=60s
 # pcs -f drbd_cfg resource master  ms_drbd_ha drbd_ha master-max=1 master-node-max=1 clone-max=2 clone-node-max=1 notify=true
 # pcs -f drbd_cfg resource create drbd_fs Filesystem device="/dev/drbd1" directory="/var/lib/mysql" fstype="ext3"
@@ -350,7 +350,7 @@ pcs property set no-quorum-policy=ignore
 
 配置好之后，查看集群运行状态。正常状态如下，若有异常，请根据错误信息进行故障排除。日志文件在 `/var/log/` 下。
 
-```Linux Kernel Module
+```Shell
 # pcs status
 ```
 
@@ -358,7 +358,7 @@ pcs property set no-quorum-policy=ignore
 
 在两边节点上，执行下面命令设置 Corosync，Pacemaker 开机自启动。MariaDB 不需要设置，集群会根据 DRBD 主备关系自动判断在哪个节点启动该服务。
 
-```Linux Kernel Module
+```Shell
 # systemctl enable corosync pacemaker
 ```
 
@@ -372,7 +372,7 @@ pcs property set no-quorum-policy=ignore
 
 首先配置 yum 仓库。
 
-```Linux Kernel Module
+```Shell
 # vi /etc/yum.repos.d/nginx.repo
 [nginx]
 name=nginx repo
@@ -384,7 +384,7 @@ enabled=1
 
 配置 nginx，同样根据自己的环境替换 `lqi1eha02`,`wordpress`,`wpuser`,`wppassword`,`10.0.1.10` 部分内容。
 
-```Linux Kernel Module
+```Shell
 # vi /etc/nginx/conf.d/default.conf
 server {
     listen 80;
@@ -418,7 +418,7 @@ cgi.fix_pathinfo=0
 
 安装 wordpress。配置数据库连接信息。两节点上分别执行。
 
-```Linux Kernel Module
+```Shell
 # wget http://wordpress.org/latest.tar.gz
 # tar zxvf wordpress-4.6.1.tar.gz
 # mv wordpress/* /usr/share/nginx/lqi1eha02.chinacloudapp.cn/
@@ -442,7 +442,7 @@ define('DB_HOST', '10.0.1.10');
 
 重启服务，使配置生效，并设置开机自启动。
 
-```Linux Kernel Module
+```Shell
 # systemctl restart nginx php-fpm
 # systemctl enable nginx php-fpm
 ```
