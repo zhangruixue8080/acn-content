@@ -1,3 +1,18 @@
+<properties
+                pageTitle="Azure Web 应用配置本地缓存后出现日志中断现象"
+                description="Azure Web 应用配置了本地缓存后由于 w3wp 进程的中断，日志记录会出现中断现象"
+                services="web-apps"
+                documentationCenter=""
+                authors=""
+                manager=""
+                editor=""
+                tags="Web Apps,local cache,Log"/>
+
+<tags
+                ms.service="web-apps-aog"
+                ms.date="12/23/2016"
+                wacn.date="12/23/2016"/>
+
 # Azure Web 应用配置本地缓存后出现日志中断现象
 
 ### 问题现象

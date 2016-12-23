@@ -1,3 +1,18 @@
+<properties
+                pageTitle="Azure Web 应用对外连接数上限分析"
+                description="Azure Web 应用对外连接数存在上限，超出后会发生异常"
+                services="web-apps"
+                documentationCenter=""
+                authors=""
+                manager=""
+                editor=""
+                tags="Web Apps,outbound connection"/>
+
+<tags
+                ms.service="web-apps-aog"
+                ms.date="12/23/2016"
+                wacn.date="12/23/2016"/>
+
 # Azure Web 应用对外连接数上限分析
 
 在 Azure Web 应用中发起大量外部连接操作时，需要考虑已经建立了多少外部连接。当超过最大对外连接数时，Azure Web 应用将会产生套接字异常。Azure Web 应用对于各个级别的实例，对外连接数是固定的，如下所示：
