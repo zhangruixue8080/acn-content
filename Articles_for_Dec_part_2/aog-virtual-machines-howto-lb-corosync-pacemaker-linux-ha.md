@@ -31,8 +31,7 @@
 此处使用已经存在的一个存储账号存储所有的虚拟机磁盘。
 
 虚拟网络中至少两个子网，一个用于后端数据库，一个用于前端 web。  
-如下图，此处使用 lqihavnet 中 subnet-2 作为后端数据库子网；  
-subnet-3 作为前端 web 子网。
+如下图，此处使用 lqihavnet 中 subnet-2 作为后端数据库子网；subnet-3 作为前端 web 子网。
 
 ![vnet](./media/aog-virtual-machines-howto-lb-corosync-pacemaker-linux-ha/vnet.png)
 
@@ -105,8 +104,8 @@ New-AzureVM -ServiceName $svc -vNetName $vnet  -Location $loc
 
 ```PowerShell
 Add-AzureInternalLoadBalancer -ServiceName $svc -InternalLoadBalancerName $ilb –SubnetName $sub1 –StaticVNetIPAddress $ilbip
-Get-AzureVM –ServiceName $svc –Name $vmname1 | Add-AzureEndpoint -Name "Mysql" -Protocol $prot1 -LocalPort $locport1 -PublicPort $pubport1 -LoadBalancerDistribution $ilbdist –DefaultProbe -InternalLoadBalancerName $ilb | update-AzureVM
-Get-AzureVM –ServiceName $svc –Name $vmname2 | Add-AzureEndpoint -Name "Mysql" -Protocol $prot1 -LocalPort $locport1 -PublicPort $pubport1 -LoadBalancerDistribution $ilbdist –DefaultProbe -InternalLoadBalancerName $ilb | update-AzureVM
+Get-AzureVM –ServiceName $svc –Name $vmname1 | Add-AzureEndpoint -Name $epname1 -Protocol $prot1 -LocalPort $locport1 -PublicPort $pubport1 -LoadBalancerDistribution $ilbdist –DefaultProbe -InternalLoadBalancerName $ilb | update-AzureVM
+Get-AzureVM –ServiceName $svc –Name $vmname2 | Add-AzureEndpoint -Name $epname1 -Protocol $prot1 -LocalPort $locport1 -PublicPort $pubport1 -LoadBalancerDistribution $ilbdist –DefaultProbe -InternalLoadBalancerName $ilb | update-AzureVM
 ```
 
 创建前端 web 虚拟机：设置网络，静态内网 IP，加入可用性集，配置负载均衡。
@@ -150,7 +149,7 @@ CentOS 7默认开启了 SeLinux 增强安全功能，为方便 demo，这里关�
 
 ![selunux-disabled](./media/aog-virtual-machines-howto-lb-corosync-pacemaker-linux-ha/selunux-disabled.png)
 
-用全盘做一个主分区 `/dev/sdc1`, 不需要格式化成任何文件系统，该分区将由 DRBD 接管，文件系统将建立在 DRBD 设备上。
+用全盘做一个主分区 `/dev/sdc`, 不需要格式化成任何文件系统，该分区将由 DRBD 接管，文件系统将建立在 DRBD 设备上。
 
 ```Shell
 # fdisk /dev/sdc
@@ -169,7 +168,7 @@ CentOS 7默认开启了 SeLinux 增强安全功能，为方便 demo，这里关�
 
 在两个节点上分别执行如下命令。
 
-安装 DRBD 模块。
+安装 DRBD 模块，安装完成后，重启服务器。
 
 ```Shell
 # yum install kmod-drbd84 drbd84-utils
@@ -193,13 +192,13 @@ resource mysqlr0 {
 protocol C;
         on lqi1ecmy01 {
                 device /dev/drbd1;
-                disk /dev/sdc1;
+                disk /dev/sdc;
                 address 10.0.1.4:7788;
                 meta-disk internal;
         }
         on lqi1ecmy02 {
                 device /dev/drbd1;
-                disk /dev/sdc1;
+                disk /dev/sdc;
                 address 10.0.1.5:7788;
                 meta-disk internal;
         }
@@ -229,7 +228,7 @@ protocol C;
 使用下面命令查看同步状态，你可能看到 DRBD 处于 sync 状态。等待 sync 成功，两节点都变成 UptoDate 状态，再进行下一步操作。
 
 ```Shell
-#cat /proc/drbd 
+# cat /proc/drbd 
 ```  
 
 或者   
@@ -255,8 +254,9 @@ DRBD 配置完成，接下来安装 MariaDB 服务器。
 在主节点上执行如下命令，并初始化 mysql 安装选项。
 
 ```Shell
-#yum install mariadb-server
-#/usr/bin/mysql_secure_installation
+# yum -y install mariadb-server mariadb
+# service mariadb start
+# /usr/bin/mysql_secure_installation
 ```
 
 接着在备用节点上安装数据库。首先停止主节点上相关服务：
@@ -266,11 +266,6 @@ DRBD 配置完成，接下来安装 MariaDB 服务器。
 # umount /var/lib/mysql/
 # drbdadm secondary mysqlr0
 ```
-或者
-
-```Shell
-# drbdadm secondary mysqlr0 --force
-```
 
 在另一节点上：
 
@@ -278,6 +273,7 @@ DRBD 配置完成，接下来安装 MariaDB 服务器。
 # drbdadm primary mysqlr0
 # mount /dev/drbd1 /var/lib/mysql
 # yum install mariadb-server
+# service mariadb start
 ```
 
 然后在该节点上登录数据库，创建 web 应用需要的数据库和用户。
@@ -306,10 +302,16 @@ Bye
 # systemctl enable pcsd.service
 ```
 
-为集群用户设置密码，该用户将用来在集群节点间通信，进行数据同步。下面步骤仅需要在某一节点上执行。
+为集群用户设置密码，该用户将用来在集群节点间通信，进行数据同步。
+
 
 ```Shell
 # passwd hacluster
+```
+
+该步骤仅需要在某一节点上执行。  
+
+```Shell
 # pcs cluster auth lqi1ecmy01 lqi1ecmy02
 ```
 
@@ -330,7 +332,7 @@ Bye
 因为两节点集群不需要在 vote 功能，所以禁用 quorum。
 
 ```Shell
-pcs property set no-quorum-policy=ignore
+# pcs property set no-quorum-policy=ignore
 ```
 
 添加集群资源，将 DRBD，文件系统和MariaDB服务纳入集群管理，并设置彼此之间的依赖关系。
