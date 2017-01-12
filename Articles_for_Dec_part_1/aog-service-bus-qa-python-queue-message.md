@@ -28,10 +28,11 @@
 更换 python 引用的 Service Bus SDK，这个问题发生在 `azure-servicebus V0.20.2` 版本以前，现在最新版本为 `V0.20.3` 版本，引用最新即可。  
 
 **前提：** 
-
+```
   1. 搭建 python 环境。
   2. 在 CMD 中使用 `pip` 命令引用 `azure-servicebus V0.20.3`。
   3. 下载 Python Tools for Visual Studio 插件并安装。
+```
   
 **代码如下：**  
 
