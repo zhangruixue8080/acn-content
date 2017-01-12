@@ -50,7 +50,7 @@ Azure 事件中心支持多种消费消息的方式，而且也提供了不同�
 	*	[SDK源代码*](https://github.com/apache/storm/tree/master/external/storm-eventhubs)
 	*	[示例](https://github.com/Azure-Samples/hdinsight-dotnet-java-storm-eventhub)
 
->[AZURE.NOTE]这里的 SDK 其实还是使用的 Java 构件（EventHubBolt\EventHubSpout），只是拓扑是 C# 的，基于 [Microsoft.SCP.Net.SDK](https://www.nuget.org/packages/Microsoft.SCP.Net.SDK/) 包。
+>[AZURE.NOTE]* 这里的 SDK 其实还是使用的 Java 构件（EventHubBolt\EventHubSpout），只是拓扑是 C# 的，基于 [Microsoft.SCP.Net.SDK](https://www.nuget.org/packages/Microsoft.SCP.Net.SDK/) 包。
 
 *	Java 
 	*	[SDK引用库](https://mvnrepository.com/artifact/org.apache.storm/storm-eventhubs)

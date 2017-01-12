@@ -49,11 +49,11 @@
 
 	以下是本地运行实例、Batch 节点依赖的运行时环境：
 
-	1. python 2.7 或 3.3+ 
-	2. pip 9.0.1  
-	3. cryptography
-	4. azure-batch
-	5. azure-storage  
+	- python 2.7 或 3.3+ 
+	- pip 9.0.1  
+	- cryptography
+	- azure-batch
+	- azure-storage  
 
 我们在尝试安装以上依赖环境时遇到了诸多问题，首要的问题就是如何在 Batch 节点中安装 Python 环境（示例中是基于 Linux Batch 节点，并未给出 Windows 安装 Python 的示例），因为 Windows Batch Pool 也是基于云服务建立的计算节点，因此我们参考了云服务中通过 PowerShell 安装 Python 的资料，参考：[云服务配置 Python 环境](/documentation/articles/cloud-services-python-ptvs)。
 

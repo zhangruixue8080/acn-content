@@ -24,7 +24,7 @@
 
 ## **问题分析**
 
-删除用户的方法可以列出如下 3 个:
+删除用户的方法可以列出如下 3 个 :
 
 1.	在门户中单个删除,如果用户量特别大则不能满足。
 2.	如果在本地 AD 中删除了多个用户信息, 那么再次上传时 Azure AD 中也会删除相应的用户信息，但是如果本地 AD 是生产环境, 那么该方法是不可行的。
@@ -37,15 +37,17 @@
 1.	[Microsoft Online Services Sign-In Assistant for IT Professionals RTW](https://www.microsoft.com/zh-cn/download/details.aspx?id=41950)
 2.	[Azure Active Directory Module for Windows PowerShell (64-bit version)](http://go.microsoft.com/fwlink/p/?linkid=236297)
 
-安装完成之后执行 Windows Azure Active Directory 模块生成的用于 Windows PowerShell 的快捷方式。
+安装完成之后按如下步骤执行：
 
-然后执行 `$msolcred = get-credential` 命令，输入您目录中有管理权限的用户名和密码。
+1.	执行 Windows Azure Active Directory 模块生成的用于 Windows PowerShell 的快捷方式。
 
-使用 `connect-msolservice -credential $msolcred` 命令连接到 Azure AD。
+2.	执行 `$msolcred = get-credential` 命令，输入您目录中有管理权限的用户名和密码。
 
-通过 `Get-MsolUser –All | Export-Csv C:\users.csv`  导出 AD 用户信息到本地 .csv 文件中。导出后修改此文件移除本次不需要删除的用户信息。
+3.	使用 `connect-msolservice -credential $msolcred` 命令连接到 Azure AD。
 
-`Import-Csv C:\users.csv | Remove-MsolUser –Force`   通过 .csv 文件删除 Azure AD 上的用户。
+4.	通过 `Get-MsolUser –All | Export-Csv C:\users.csv`  导出 AD 用户信息到本地 .csv 文件中。导出后修改此文件移除本次不需要删除的用户信息。
+
+5.	执行 `Import-Csv C:\users.csv | Remove-MsolUser –Force`   通过 .csv 文件删除 Azure AD 上的用户。
 
 执行完以后可以到管理门户中查看用户信息是否已被删除。
 

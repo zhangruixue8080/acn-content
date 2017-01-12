@@ -32,7 +32,7 @@
  
 ## 选择当前订阅 ID
 
-设置当前订阅，多订阅环境下需要执行该步骤。
+设置当前订阅，多订阅环境下需要执行该步骤 :
 
 	Set-AzureRmContext -SubscriptionId <subscription ID>
  
@@ -46,7 +46,7 @@
 
 ## 创建服务凭证
 
-为 Azure AD 应用创建服务凭证。
+Azure AD 应用创建服务凭证:
 
 	New-AzureRmADServicePrincipal -ApplicationId $azureAdApplication.ApplicationId
 
@@ -56,7 +56,7 @@
  
 ## 授权
 
-为您的服务凭证添加角色设置，在该例中，为您的服务凭证设置访问您订阅下所有资源的读权限。 如果想了解更多内容，请参考：[Azure Role-based Access Control](https://azure.microsoft.com/en-us/documentation/articles/role-based-access-control-what-is/)
+为您的服务凭证添加角色设置，在该例中，为您的服务凭证设置访问您订阅下所有资源的读权限。 如果想了解更多内容，请参考：[Azure Role-based Access Control](https://azure.microsoft.com/en-us/documentation/articles/role-based-access-control-what-is/)。
 
 	New-AzureRmRoleAssignment -RoleDefinitionName Contributor -ServicePrincipalName $azureAdApplication.ApplicationId
 

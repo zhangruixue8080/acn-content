@@ -18,7 +18,9 @@
 />
 # 使用 EventHubClient 连接 IoT 中心的正确连接字符串
 
-Azure IoT 中心支持两种通信方式，一个是设备到云（以下简称 D2C），另一个是云到设备（以下简称 C2D）。对于这两种通信，都会有相应的发送端和消费端。微软也提供了相应的 SDK 以供开发者方便使用。以 .NET 为例（其他语言 SDK 的源代码分享在此 [Github 库](https://github.com/Azure/azure-iot-sdks)中）。
+Azure IoT 中心支持两种通信方式，一个是设备到云（以下简称 D2C），另一个是云到设备（以下简称 C2D）。对于这两种通信，都会有相应的发送端和消费端。微软也提供了相应的 SDK 以供开发者方便使用。
+
+以 .NET 为例（其他语言 SDK 的源代码分享在此 [Github 库](https://github.com/Azure/azure-iot-sdks)中）:
 
 -	D2C 消息发送端：[DeviceClient](https://github.com/Azure/azure-iot-sdk-csharp/blob/1f5a259eee0d178db42d2bf866b80c9846adebba/device/Microsoft.Azure.Devices.Client/DeviceClient.cs), [Nuget](https://www.nuget.org/packages/Microsoft.Azure.Devices.Client/), namespace: Microsoft.Azure.Devices.Client
 

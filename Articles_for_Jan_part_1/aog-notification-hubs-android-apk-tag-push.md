@@ -207,15 +207,15 @@
 
 ![vm-pushdemo](./media/aog-notification-hubs-android-apk-tag-push/vm-pushdemo.jpg)
 
-1.	无 tag 发送：
+-	无 tag 发送：
 
 		hub.sendNotification(n);
  
-2.	有 tag 发送 1，注册包含目标 tag：
+-	有 tag 发送 1，注册包含目标 tag：
 
 		hub.sendNotification(n, "hello");
  
-3.	有 tag 发送 2，注册不包含目标 tag：无法接收到消息。
+-	有 tag 发送 2，注册不包含目标 tag：无法接收到消息。
 
 		hub.sendNotification(n, "world");
 

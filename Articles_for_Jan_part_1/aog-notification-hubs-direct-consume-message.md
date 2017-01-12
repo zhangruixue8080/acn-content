@@ -63,7 +63,7 @@ Azure 事件中心支持多种消费消息的方式，而且也提供了不同�
 	*	SDK 源代码*
 	*	[示例](https://github.com/allenhula/azure-china-get-started/tree/master/EventHub/CSharp/EventHubDirectDemo)
 
->[AZURE.NOTE]*该SDK库因为历史原因没有开源，不过微软已在开发一个[新的SDK](https://github.com/azure/azure-event-hubs-dotnet)，并[开源](https://blogs.msdn.microsoft.com/eventhubs/2016/10/13/event-hubs-and-net-standard/)了，目前还在预览中，不适合用于生产环境。
+>[AZURE.NOTE]* 该SDK库因为历史原因没有开源，不过微软已在开发一个[新的SDK](https://github.com/azure/azure-event-hubs-dotnet)，并[开源](https://blogs.msdn.microsoft.com/eventhubs/2016/10/13/event-hubs-and-net-standard/)了，目前还在预览中，不适合用于生产环境。
 
 *	Java 
 	*	[SDK 引用库](https://mvnrepository.com/artifact/com.microsoft.azure/azure-eventhubs)

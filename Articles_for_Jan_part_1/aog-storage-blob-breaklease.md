@@ -40,7 +40,7 @@
 	![error2-1](./media/aog-storage-blob-breaklease/error2-1.jpg)
 	![error2-1](./media/aog-storage-blob-breaklease/error2-2.jpg)
  
-2.	运行工具，执行。
+2.	运行工具，执行：
 	
 	breaklease portalvhds70gssrgbwgbn3 dvxTERq99Ws8EkGbmRK4VThrclJ2THAK1gd051gFK9z6k29NR4L51BFrm5Q4NPJt7qUKRwq33nMSlRjpAX1BnA== https://portalvhds70gssrgbwgbn3.blob.core.chinacloudapi.cn/vhds/team-server-team-server-0530-1.vhd
 
